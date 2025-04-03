@@ -1,17 +1,10 @@
 import streamlit as st
-from openai import OpenAI
+import openai
 import json
 from datetime import datetime
 
 # OpenAI API 키 설정
-try:
-    # OpenAI API 키 설정
-    api_key = st.secrets["OPENAI_API_KEY"]
-    client = OpenAI(api_key=api_key)  # 직접 import한 방식으로 생성
-except Exception as e:
-    st.error(f"OpenAI API 키 설정 중 오류가 발생했습니다: {str(e)}")
-    st.error("Streamlit Cloud의 Secrets 설정에서 API 키를 확인해주세요.")
-    st.stop()
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 # 페이지 설정
 st.set_page_config(
@@ -149,7 +142,7 @@ with col1:
             
             try:
                 # OpenAI API 호출
-                response = client.chat.completions.create(
+                response = openai.ChatCompletion.create(
                     model="gpt-4",  # 또는 사용 가능한 최신 모델
                     messages=[{"role": "system", "content": prompt}]
                 )
@@ -239,7 +232,7 @@ with col2:
         try:
             # OpenAI API 호출
             with st.spinner("답변을 생성하고 있습니다..."):
-                chat_response = client.chat.completions.create(
+                chat_response = openai.ChatCompletion.create(
                     model="gpt-4",  # 또는 사용 가능한 최신 모델
                     messages=[{"role": "system", "content": chat_prompt}]
                 )
