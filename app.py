@@ -110,49 +110,42 @@ with col1:
             # 사용자 입력을 기반으로 프롬프트 생성
             current_date = datetime.now().strftime("%Y년 %m월")
             prompt = f"""
-당신은 교사 맞춤형 연수 추천 전문가입니다. 다음 정보를 바탕으로 교사에게 필요한 연수를 추천해주세요:
-
-이름: {teacher_name if teacher_name else "선생님"}
-관심 분야: {', '.join(selected_interests)}
-교직 경력: {teaching_experience}년
-학교급: {school_level}
-담당 과목: {subject if subject else "미입력"}
-선호하는 연수 형태: {preference}
-선호하는 연수 시간대: {', '.join(time_preference) if time_preference else "미입력"}
-현재 시점: {current_date}
-
-연수 추천은 다음의 기준을 따르도록 하세요:
-- 관심 분야, 교직 경력, 학교급, 담당 과목, 연수 형태, 시간대를 반영해 적절한 연수를 추천합니다.
-- 연수는 총 3개, 관련 분야는 총 2개 추천합니다.
-- 추천 이유는 반드시 포함하고, 연수는 중복되지 않도록 구성합니다.
-- 연수 형식은 지정된 시간대와 선호 형태에 맞도록 구성합니다.
-- 너무 기초적이거나 전문적인 연수는 지양하고, 경력에 적합한 수준으로 제안해주세요.
-
-다음 형식의 JSON으로 답변해주세요:
-{{
-    "recommended_courses": [
-        {{
-            "title": "연수 제목",
-            "category": "연수 카테고리",
-            "format": "온라인/오프라인/혼합형",
-            "duration": "연수 기간",
-            "credits": "이수 학점",
-            "description": "연수 간략 설명",
-            "benefits": "기대효과",
-            "recommendation_reason": "이 연수를 추천하는 이유"
-        }},
-        ...
-    ],
-    "related_areas": [
-        {{
-            "area": "관련 분야명",
-            "relevance": "선택한 관심 분야와의 관련성",
-            "benefits": "이 분야를 학습했을 때의 장점"
-        }},
-        ...
-    ]
-}}
-""" 
+            당신은 교사 맞춤형 연수 추천 전문가입니다. 다음 정보를 바탕으로 교사에게 필요한 연수를 추천해주세요:
+            
+            이름: {teacher_name if teacher_name else "선생님"}
+            관심 분야: {', '.join(selected_interests)}
+            교직 경력: {teaching_experience}년
+            학교급: {school_level}
+            담당 과목: {subject if subject else "미입력"}
+            선호하는 연수 형태: {preference}
+            선호하는 연수 시간대: {', '.join(time_preference) if time_preference else "미입력"}
+            현재 시점: {current_date}
+            
+            다음 형식의 JSON으로 답변해주세요:
+            {{
+                "recommended_courses": [
+                    {{
+                        "title": "연수 제목",
+                        "category": "연수 카테고리",
+                        "format": "온라인/오프라인/혼합형",
+                        "duration": "연수 기간",
+                        "credits": "이수 학점",
+                        "description": "연수 간략 설명",
+                        "benefits": "기대효과",
+                        "recommendation_reason": "이 연수를 추천하는 이유"
+                    }},
+                    ... (총 3개)
+                ],
+                "related_areas": [
+                    {{
+                        "area": "관련 분야명",
+                        "relevance": "선택한 관심 분야와의 관련성",
+                        "benefits": "이 분야를 학습했을 때의 장점"
+                    }},
+                    ... (총 2개)
+                ]
+            }}
+            
             실제 존재할 것 같은 현실적인 연수 과정을 추천해주세요. 연수 제목은 실제 교육청이나 연수원에서 제공할 법한 구체적인 이름으로 작성해주세요.
             """
             
