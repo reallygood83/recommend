@@ -4,7 +4,7 @@ import json
 from datetime import datetime
 
 # OpenAI API 키 설정
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # 페이지 설정
 st.set_page_config(
@@ -142,7 +142,7 @@ with col1:
             
             try:
                 # OpenAI API 호출
-                response = openai.ChatCompletion.create(
+                response = client.chat.completions.create(
                     model="gpt-4",  # 또는 사용 가능한 최신 모델
                     messages=[{"role": "system", "content": prompt}]
                 )
@@ -232,7 +232,7 @@ with col2:
         try:
             # OpenAI API 호출
             with st.spinner("답변을 생성하고 있습니다..."):
-                chat_response = openai.ChatCompletion.create(
+                chat_response = client.chat.completions.create(
                     model="gpt-4",  # 또는 사용 가능한 최신 모델
                     messages=[{"role": "system", "content": chat_prompt}]
                 )
